@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -22,19 +21,21 @@ public class Employee {
     @CPF(message = "CPF inválido")
     private String CPF;
 
-    private String name;
+    @NotEmpty(message = "nome não pode estar vazio")
+    private String nameEmployee;
 
     private Long positionId;
 
     private Long sectorId;
-    private String positionName;
-    private String sectorName;
+
+//    private String positionName;
+//    private String sectorName;
     public Employee() {
     }
 
     public Employee(String CPF, String name, Long positionId, Long sectorId) {
         this.CPF = CPF;
-        this.name = name;
+        this.nameEmployee = name;
         this.positionId = positionId;
         this.sectorId = sectorId;
     }

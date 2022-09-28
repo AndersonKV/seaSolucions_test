@@ -21,13 +21,13 @@ public class PositionCreateService {
     public Position create(Position request) {
         try {
 
-            Optional<Position> positionExist = this.positionRepository.findByName(request.getName());
+            Optional<Position> positionExist = this.positionRepository.findByPositionName(request.getPositionName());
 
             if (positionExist.isPresent()) {
-                throw new ApiRequestException("já existe um cargo com esse nome: " + request.getName());
+                throw new ApiRequestException("já existe um cargo com esse nome: " + request.getPositionName());
             }
 
-            Optional<Sector> sectorExist = this.sectorRepository.findByName(request.getSectorName());
+            Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(request.getSectorName());
 
             if (sectorExist.isEmpty()) {
                 throw new ApiRequestException("nenhum setor com esse nome foi encontrado: " + request.getSectorName());

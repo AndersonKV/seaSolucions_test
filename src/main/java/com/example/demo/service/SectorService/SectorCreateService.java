@@ -1,9 +1,7 @@
 package com.example.demo.service.SectorService;
 
-import com.example.demo.entities.Employee;
 import com.example.demo.entities.Sector;
 import com.example.demo.exception.ApiRequestException;
-import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +15,10 @@ public class SectorCreateService {
 
     public Sector create(Sector request) {
         try {
-            Optional<Sector> sectorExist = this.sectorRepository.findByName(request.getName());
+            Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(request.getSectorName());
 
             if (sectorExist.isPresent()) {
-                throw new ApiRequestException("já existe um setor com esse nome: " + request.getName());
+                throw new ApiRequestException("já existe um setor com esse nome: " + request.getSectorName());
             }
 
              return this.sectorRepository.save(request);

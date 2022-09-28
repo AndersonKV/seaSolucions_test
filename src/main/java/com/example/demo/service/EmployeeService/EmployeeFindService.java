@@ -7,7 +7,6 @@ import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.PositionRepository;
 import com.example.demo.repository.SectorRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,16 +19,36 @@ public class EmployeeFindService {
     private PositionRepository positionRepository;
     private SectorRepository sectorRepository;
 
-    public Employee findById(Long id) {
+    public EmployeeDTO findById(Long id) {
         try {
 
-            Optional<Employee> find = this.employeeRepository.findById(id);
+            var findEmployee = this.employeeRepository.findById(id);
 
-            if (find.isEmpty()) {
+            if (findEmployee.isEmpty()) {
                 throw new ApiRequestException("nenhum empregado com esse id foi encontrado: " + id);
             }
 
-            return find.get();
+            var findPosition = this.positionRepository.findById(findEmployee.get().getPositionId());
+
+            if (findPosition.isEmpty()) {
+                throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployee.get().getPositionId());
+            }
+
+            var findSector = this.sectorRepository.findById(findEmployee.get().getSectorId());
+
+            if (findSector.isEmpty()) {
+                throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployee.get().getSectorId());
+            }
+
+
+            var getEmployee = new EmployeeDTO(
+                    findEmployee.get().getCPF(),
+                    findEmployee.get().getNameEmployee(),
+                    findPosition.get().getPositionName(),
+                    findSector.get().getSectorName());
+
+
+            return getEmployee;
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }
@@ -37,32 +56,31 @@ public class EmployeeFindService {
 
     public EmployeeDTO findByInfoAboutEmployee(Long id) {
         try {
-            var employeeDTO = new EmployeeDTO();
+            Optional<Employee> findEmployee = this.employeeRepository.findById(id);
 
-            Optional<Employee> find = this.employeeRepository.findById(id);
-
-            if (find.isEmpty()) {
+            if (findEmployee.isEmpty()) {
                 throw new ApiRequestException("nenhum empregado com esse id foi encontrado: " + id);
             }
 
-            var getPosition = this.positionRepository.findById(find.get().getPositionId());
+            var getPosition = this.positionRepository.findById(findEmployee.get().getPositionId());
 
             if (getPosition.isEmpty()) {
-                employeeDTO.setPositionMessage("não foi possivel recuperar as informações sobre o cargo");
-            } else  {
-                employeeDTO.setPositionName(getPosition.get().getName());
+                throw new ApiRequestException("não foi possivel recuperar o cargo");
             }
 
-            var getSector = this.sectorRepository.findById(find.get().getSectorId());
+            var getSector = this.sectorRepository.findById(findEmployee.get().getSectorId());
 
             if (getSector.isEmpty()) {
-                employeeDTO.setSetctorMessage("não foi possivel recuperar as informações sobre o setor");
-            } else {
-                employeeDTO.setPositionName(getSector.get().getName());
+                throw new ApiRequestException("não foi possivel recuperar o setor");
             }
 
-            employeeDTO.setCPF(find.get().getCPF());
-            employeeDTO.setName(find.get().getName());
+            var employeeDTO = new EmployeeDTO(
+                    findEmployee.get().getCPF(),
+                    findEmployee.get().getNameEmployee(),
+                    getPosition.get().getPositionName(),
+                    getSector.get().getSectorName()
+            );
+
 
             return employeeDTO;
         } catch (Exception e) {
@@ -72,7 +90,7 @@ public class EmployeeFindService {
 
     public List<Employee> findByName(String name) {
         try {
-            List<Employee> findByName = this.employeeRepository.findByName(name);
+            List<Employee> findByName = this.employeeRepository.findByNameEmployee(name);
 
             if (findByName.isEmpty()) {
                 throw new ApiRequestException("nenhum empregado com esse nome foi encontrado: " + name);

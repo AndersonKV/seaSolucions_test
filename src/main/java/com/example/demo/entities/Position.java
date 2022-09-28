@@ -19,13 +19,12 @@ public class Position {
     @SequenceGenerator(name = "positions_sequence", sequenceName = "positions_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "positions_sequence")
     private Long id;
-    private String name;
+
+    @NotEmpty(message = "nome do cargo não pode estar vazio")
+    private String positionName;
+
+    @NotEmpty(message = "nome do setor não pode estar vazio")
     private String sectorName;
 
     private Long sectorId;
-
-    @ManyToOne
-    @JoinColumn(name = "library_id")
-    private Position position;
-
 }

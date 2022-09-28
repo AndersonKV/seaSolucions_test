@@ -21,7 +21,7 @@ public class EmployeeFindController {
     private EmployeeFindService employeeFindService;
 
     @GetMapping(path = "id/{id}")
-    public Employee findById(@PathVariable Long id) {
+    public EmployeeDTO findById(@PathVariable Long id) {
         return this.employeeFindService.findById(id);
     }
 

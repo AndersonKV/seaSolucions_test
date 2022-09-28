@@ -1,5 +1,7 @@
 package com.example.demo.service.PositionService;
 
+import com.example.demo.controllers.DTO.ListEmployeeDTO;
+import com.example.demo.controllers.DTO.PositionDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Position;
 import com.example.demo.exception.ApiRequestException;
@@ -9,10 +11,7 @@ import com.example.demo.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PositionFindService {
@@ -27,57 +26,33 @@ public class PositionFindService {
 
 
     public List<Position> findAll() {
-
-        var find = this.positionRepository.findAll();
-//
-//        var size = find.size();
-//
-//        List<Position> positions = Arrays.asList(find.get(size));
-//
-        return find;
-//        positions.forEach(p ->  {
-//           var employee = this.employeeRepository.findByPositionId(p.getId());
-//                if(employee.isPresent()) {
-//                    System.out.print("===================");
-//                    System.out.print(employee.get().getName());
-//                }
-//        });
-//        find.stream().forEach(p -> {
-//            var user = this.employeeRepository.findByPositionId(position.getId());
-//
-//            System.out.print("===================");
-//
-//            if (user.isPresent()) {
-//                System.out.print(user);
-//
-//                System.out.print("===================");
-//                System.out.print(user.get().getName());
-//            }
-//        });
+        return this.positionRepository.findAll();
     }
 
-    public List<Employee> findByName(String name) {
+    public PositionDTO findByPositionName(String name) {
         try {
-            //retorna 1
-            Optional<Position> positionExist = this.positionRepository.findByName(name);
+            Optional<Position> positionExist = this.positionRepository.findByPositionName(name);
 
             if (positionExist.isEmpty()) {
                 throw new ApiRequestException("nenhum cargo com esse nome foi encontrado: " + name);
             }
 
-            var itens = Arrays.asList(positionExist.get());
+            List<Employee> getAllEmployees = this.employeeRepository.findByPositionIdAndSectorId(positionExist.get().getId(), positionExist.get().getSectorId());
 
-            List<Employee> getAllEmplooyes = this.employeeRepository.findByPositionIdAndSectorId(positionExist.get().getId(), positionExist.get().getSectorId());
+            PositionDTO positionDTO = new PositionDTO(
+                    positionExist.get().getPositionName(),
+                    positionExist.get().getSectorName()
+                    );
 
+            List<ListEmployeeDTO> ArrayListEmployees = new ArrayList<>();
 
-            for (var item : getAllEmplooyes) {
+            getAllEmployees.stream().forEach(a -> {
+                ArrayListEmployees.add(new ListEmployeeDTO(a.getCPF(), a.getNameEmployee()));
+            });
 
+            positionDTO.setEmployeeList(ArrayListEmployees);
 
-            }
-
-            return getAllEmplooyes;
-
-
+            return positionDTO;
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

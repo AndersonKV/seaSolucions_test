@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface SectorRepository extends JpaRepository<Sector, Long> {
-    Optional<Sector> findByName(String name);
+    Optional<Sector> findBySectorName(String name);
 
 }

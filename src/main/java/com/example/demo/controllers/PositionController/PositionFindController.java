@@ -1,5 +1,6 @@
 package com.example.demo.controllers.PositionController;
 
+import com.example.demo.controllers.DTO.PositionDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Position;
 import com.example.demo.service.PositionService.PositionCreateService;
@@ -25,8 +26,8 @@ public class PositionFindController {
          return  this.positionFindService.findAll();
     }
 
-    @GetMapping(path = "find_by_name")
-    public List<Employee> findByName(@RequestParam("name") String name) {
-          return this.positionFindService.findByName(name);
+    @GetMapping(path = "find_by_position")
+    public PositionDTO findByName(@RequestParam("name") String name) {
+          return this.positionFindService.findByPositionName(name);
     }
 }

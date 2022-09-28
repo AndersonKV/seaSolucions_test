@@ -9,12 +9,9 @@ import com.example.demo.entities.Employee;
 import com.example.demo.repository.PositionRepository;
 import com.example.demo.repository.SectorRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -32,21 +29,20 @@ public class EmployeeCreateService {
 //                throw new ApiRequestException("esse cpf esta em uso: " + request.getCPF());
 //            }
 
-            Optional<Position> positionExist = this.positionRepository.findByName(request.getPositionName());
+            Optional<Position> positionExist = this.positionRepository.findByPositionName(request.getPositionName());
 
             if (positionExist.isEmpty()) {
                 throw new ApiRequestException("nenhum cargo foi encontrado com esse nome: " + request.getPositionName());
             }
 
-            Optional<Sector> sectorExist = this.sectorRepository.findByName(request.getSectorName());
+            Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(request.getSectorName());
 
             if (sectorExist.isEmpty()) {
                 throw new ApiRequestException("nenhum setor com esse nome foi encontrado: " + request.getSectorName());
             }
 
-            var employee = new Employee(
-                    request.getCPF(),
-                    request.getName(),
+            var employee = new Employee(request.getCPF(),
+                    request.getNameEmployee(),
                     positionExist.get().getId(),
                     sectorExist.get().getId());
 
