@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,11 +20,9 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "positions_sequence")
     private Long id;
     private String name;
+    private String sectorName;
 
-    @OneToMany
-    private List<Employee> employees;
-
-    @ManyToOne
-    @JoinColumn(name="idpai")
-    private Sector sector;
+    //    @ManyToOne(targetEntity = Sector.class, fetch = FetchType.EAGER)
+//    private Sector sector;
+    private Long sectorId;
 }

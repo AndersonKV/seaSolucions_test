@@ -18,6 +18,13 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.18'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.apache.commons:commons-lang3'
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	implementation group: 'javax.jdo', name: 'jdo-api', version: '3.1'
+
 }
 
 tasks.named('test') {

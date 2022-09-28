@@ -1,28 +1,30 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.PositionController;
 
-import com.example.demo.entities.Employee;
-import com.example.demo.service.EmployeeCreateService;
-import lombok.AllArgsConstructor;
+import com.example.demo.entities.Position;
+import com.example.demo.entities.Sector;
+import com.example.demo.service.PositionService.PositionCreateService;
+import com.example.demo.service.SectorService.SectorCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/v1/users")
+@RequestMapping(path = "api/v1/position")
 @CrossOrigin("*")
-public class EmployeeCreateController {
-
+public class PositionCreateController{
     @Autowired
-    private EmployeeCreateService employeeCreateService;
+    private PositionCreateService positionCreateService;
 
     @PostMapping(path = "create")
-    public Employee Create(@RequestBody Employee request) {
-        return this.employeeCreateService.create(request);
+    public Position Create(@Valid @RequestBody Position request) {
+         return this.positionCreateService.create(request);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -20,12 +20,12 @@ public class Sector {
     private Long id;
 
     private String name;
-
-    @OneToMany(mappedBy="id")
-    private List<Position> position;
-
-    @OneToMany(mappedBy="id")
-    private List<Employee> employee;
+//
+//    @OneToMany(mappedBy="id")
+//    private List<Position> position;
+//
+//    @OneToMany(mappedBy="id")
+//    private List<Employee> employee;
 
 
 
