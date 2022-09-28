@@ -24,11 +24,18 @@ public class Employee {
 
     private String name;
 
-    @ManyToOne
-    private Position position;
+    private Long positionId;
 
-    @ManyToOne
-    private Sector sector;
+    private Long sectorId;
+    private String positionName;
+    private String sectorName;
+    public Employee() {
+    }
 
-
+    public Employee(String CPF, String name, Long positionId, Long sectorId) {
+        this.CPF = CPF;
+        this.name = name;
+        this.positionId = positionId;
+        this.sectorId = sectorId;
+    }
 }

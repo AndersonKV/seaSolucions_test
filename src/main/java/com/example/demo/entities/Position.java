@@ -22,7 +22,10 @@ public class Position {
     private String name;
     private String sectorName;
 
-    //    @ManyToOne(targetEntity = Sector.class, fetch = FetchType.EAGER)
-//    private Sector sector;
     private Long sectorId;
+
+    @ManyToOne
+    @JoinColumn(name = "library_id")
+    private Position position;
+
 }

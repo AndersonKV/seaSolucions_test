@@ -33,8 +33,8 @@ public class PositionCreateService {
                 throw new ApiRequestException("nenhum setor com esse nome foi encontrado: " + request.getSectorName());
             }
 
-
-            return  this.positionRepository.save(request);
+            request.setSectorId(sectorExist.get().getId());
+            return this.positionRepository.save(request);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

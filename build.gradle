@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	implementation group: 'javax.jdo', name: 'jdo-api', version: '3.1'
-
+	implementation 'org.springframework.data:spring-data-rest-core:3.5.6'
 }
 
 tasks.named('test') {

@@ -1,5 +1,6 @@
 package com.example.demo.controllers.EmployeeController;
 
+import com.example.demo.controllers.DTO.EmployeeDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.service.EmployeeService.EmployeeCreateService;
 
@@ -24,7 +25,7 @@ public class EmployeeCreateController {
     private EmployeeCreateService employeeCreateService;
 
     @PostMapping(path = "create")
-    public Employee Create(@Valid @RequestBody Employee request) {
+    public Employee Create(@Valid @RequestBody EmployeeDTO request) {
         return this.employeeCreateService.create(request);
     }
 
