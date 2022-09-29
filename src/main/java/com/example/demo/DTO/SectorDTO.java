@@ -1,6 +1,6 @@
 package com.example.demo.DTO;
 
-import com.example.demo.DTO.EmployeeDTO.EmploymentAggregationDTO;
+import com.example.demo.DTO.EmployeeDTO.EmploymentPopulateDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +15,13 @@ public class SectorDTO {
 
     // private List<ListSectorDTO> sectorList;
     private String sectorName;
-    private List<EmploymentAggregationDTO> list;
+    private List<EmploymentPopulateDTO> list;
 
     public SectorDTO() {
 
     }
 
-    public SectorDTO(Long id, String sectorName, List<EmploymentAggregationDTO> list) {
+    public SectorDTO(Long id, String sectorName, List<EmploymentPopulateDTO> list) {
         this.id = id;
         this.sectorName = sectorName;
         this.list = list;

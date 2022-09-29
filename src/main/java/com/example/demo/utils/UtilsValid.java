@@ -51,6 +51,28 @@ public class UtilsValid {
         return employment.get();
     }
 
+    protected void employmentNameUpdate(String actualName, String updateName) {
+        if(!actualName.equals(updateName)) {
+            Optional<Employment> employmentNameExist = this.employmentRepository.findByName(updateName);
+
+            if(employmentNameExist.isPresent()) {
+                throw new ApiRequestException("esse nome " + updateName + " já foi registrado");
+            }
+        }
+    }
+
+    protected void employmentUpdateSectorExist(Long sectorId, Long updateSectorId) {
+        if(!sectorId.equals(updateSectorId)) {
+            Optional<Sector> sector = this.sectorRepository.findById(updateSectorId);
+
+            if(sector.isEmpty()) {
+                throw new ApiRequestException("esse id " + updateSectorId + " não foi encontrado");
+            }
+        }
+
+    }
+
+
     protected Employment getEmploymentById(Long id) {
         Optional<Employment> employment = this.employmentRepository.findById(id);
 

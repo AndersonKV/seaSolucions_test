@@ -15,6 +15,6 @@ public class EmploymentUpdateDTO {
     private String employment;
 
     @NotNull(message = "id do setor não pode estar vazio")
-    private String sectorId;
+    private Long sectorId;
 
 }

@@ -1,37 +1,34 @@
-package com.example.demo.service.EmployeeService;
+package com.example.demo.service.EmploymentService;
 
-import com.example.demo.entities.Employee;
 import com.example.demo.exception.ApiRequestException;
-import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.EmploymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class EmployeeDeleteService {
+public class EmploymentDeleteService {
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmploymentRepository employmentRepository;
 
     public ResponseEntity deleteById(Long id) {
         try {
-            if (this.employeeRepository.findById(id).isEmpty()) {
+            if (this.employmentRepository.findById(id).isEmpty()) {
                 throw new ApiRequestException("id " + id + " não encontrado");
             }
-
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+            this.employmentRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }
     }
 
 
-    public ResponseEntity deleteAll() {
+    public ResponseEntity deleteAll(Long id) {
         try {
-            this.employeeRepository.deleteAll();
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+            this.employmentRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

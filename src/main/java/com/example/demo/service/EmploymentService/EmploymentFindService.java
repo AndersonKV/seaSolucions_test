@@ -20,7 +20,6 @@ public class EmploymentFindService {
     private SectorRepository sectorRepository;
     private EmploymentValidate employmentValidate;
 
-
     public List<Employment> findAll() {
         return this.employmentRepository.findAll();
     }

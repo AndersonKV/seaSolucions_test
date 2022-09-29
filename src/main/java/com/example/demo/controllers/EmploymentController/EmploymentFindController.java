@@ -6,6 +6,7 @@ import com.example.demo.entities.Employment;
 import com.example.demo.service.EmploymentService.EmploymentFindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +25,13 @@ public class EmploymentFindController {
     private EmploymentFindService employmentFindService;
 
     @GetMapping(path = "find_all")
-    public  List<Employment> FindAll() {
-         return  this.employmentFindService.findAll();
+    public List<Employment> FindAll() {
+        return this.employmentFindService.findAll();
     }
 
-    @GetMapping(path = "find_by_employment")
-    public  EmploymentPopulateDTO findByEmploymentName(@RequestParam("name") String name) {
-           return this.employmentFindService.findEmploymentByName(name);
+    @PutMapping(path = "find_by_employment")
+    public EmploymentPopulateDTO findByEmploymentName(@RequestParam("name") String name) {
+        return this.employmentFindService.findEmploymentByName(name);
     }
 
 

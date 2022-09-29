@@ -1,10 +1,10 @@
-package com.example.demo.controllers.EmployeeController;
+package com.example.demo.controllers.SectorController;
 
+import com.example.demo.DTO.EmploymentDTO.EmploymentUpdateDTO;
 import com.example.demo.entities.Sector;
-
-import com.example.demo.service.SectorService.SectorCreateService;
+import com.example.demo.service.EmploymentService.EmploymentUpdateService;
+import com.example.demo.service.SectorService.SectorUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,18 +15,16 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping(path = "api/v1/sector")
 @CrossOrigin("*")
-public class SectorCreateController {
-
+public class SectorUpdateController {
     @Autowired
-    private SectorCreateService sectorCreateService;
+    private SectorUpdateService sectorUpdateService;
 
-    @PostMapping(path = "create")
-    public ResponseEntity Create(@Valid @RequestBody Sector request) {
-        return this.sectorCreateService.create(request);
+    @PutMapping(path = "update/{id}")
+    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody Sector request) {
+        return this.sectorUpdateService.update(id, request);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
