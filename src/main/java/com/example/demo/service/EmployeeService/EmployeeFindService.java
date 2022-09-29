@@ -1,12 +1,14 @@
 package com.example.demo.service.EmployeeService;
 
-import com.example.demo.controllers.DTO.EmployeeDTO;
+import com.example.demo.DTO.EmployeeDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,36 +21,36 @@ public class EmployeeFindService {
     private EmploymentRepository employmentRepository;
     private SectorRepository sectorRepository;
 
-    public EmployeeDTO findById(Long id) {
+    public ResponseEntity findById(Long id) {
         try {
 
-            var findEmployee = this.employeeRepository.findById(id);
+            var findEmployeeById = this.employeeRepository.findById(id);
 
-            if (findEmployee.isEmpty()) {
-                throw new ApiRequestException("nenhum empregado com esse id foi encontrado: " + id);
+            if (findEmployeeById.isEmpty()) {
+                throw new ApiRequestException("nenhum empregado com esse id " + id + " foi encontrado");
             }
 
-            var findPosition = this.employmentRepository.findById(findEmployee.get().getPositionId());
+            var findPosition = this.employmentRepository.findById(findEmployeeById.get().getPositionId());
 
             if (findPosition.isEmpty()) {
-                throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployee.get().getPositionId());
+                throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployeeById.get().getPositionId());
             }
 
-            var findSector = this.sectorRepository.findById(findEmployee.get().getSectorId());
+            var findSector = this.sectorRepository.findById(findEmployeeById.get().getSectorId());
 
             if (findSector.isEmpty()) {
-                throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployee.get().getSectorId());
+                throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployeeById.get().getSectorId());
             }
 
 
             var getEmployee = new EmployeeDTO(
-                    findEmployee.get().getCPF(),
-                    findEmployee.get().getNameEmployee(),
+                    findEmployeeById.get().getCPF(),
+                    findEmployeeById.get().getNameEmployee(),
                     findPosition.get().getPositionName(),
                     findSector.get().getSectorName());
 
 
-            return getEmployee;
+            return new ResponseEntity(getEmployee, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

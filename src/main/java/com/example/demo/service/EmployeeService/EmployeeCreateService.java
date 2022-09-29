@@ -1,17 +1,23 @@
 package com.example.demo.service.EmployeeService;
 
-import com.example.demo.controllers.DTO.EmployeeDTO;
+import com.example.demo.DTO.EmployeeDTO;
+import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
-import com.example.demo.entities.Employee;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
+import com.example.demo.utils.EmploymentValidate;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -19,39 +25,22 @@ public class EmployeeCreateService {
     private EmployeeRepository employeeRepository;
     private EmploymentRepository employmentRepository;
     private SectorRepository sectorRepository;
+    private EmploymentValidate employmentValidate;
 
 
-    public Employee create(EmployeeDTO request) {
+    public ResponseEntity create(EmployeeDTO request) {
         try {
-            Optional<Employee> employeeIsRegister = this.employeeRepository.findByCPF(request.getCPF());
+            Employee employee = this.employmentValidate.pass(request);
 
-            if (employeeIsRegister.isPresent()) {
-                throw new ApiRequestException("esse cpf esta em uso: " + request.getCPF());
-            }
-
-            Optional<Employment> positionExist = this.employmentRepository.findByPositionName(request.getPositionName());
-
-            if (positionExist.isEmpty()) {
-                throw new ApiRequestException("nenhum cargo foi encontrado com esse nome: " + request.getPositionName());
-            }
-
-            Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(request.getSectorName());
-
-            if (sectorExist.isEmpty()) {
-                throw new ApiRequestException("nenhum setor foi encontrado com esse nome: " + request.getSectorName());
-            }
-
-            var employee = new Employee(request.getCPF(),
-                    request.getNameEmployee(),
-                    positionExist.get().getId(),
-                    sectorExist.get().getId());
-
-            return this.employeeRepository.save(employee);
+            var createdEmployee = this.employeeRepository.save(employee);
+            return new ResponseEntity(createdEmployee, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }
 
     }
+
+
 }
 
 

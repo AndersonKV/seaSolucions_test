@@ -1,4 +1,4 @@
-package com.example.demo.controllers.DTO;
+package com.example.demo.DTO;
 
 import lombok.Getter;
 import lombok.Setter;

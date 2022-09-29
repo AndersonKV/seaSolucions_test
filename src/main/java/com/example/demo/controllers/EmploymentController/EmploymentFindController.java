@@ -1,6 +1,6 @@
 package com.example.demo.controllers.EmploymentController;
 
-import com.example.demo.controllers.DTO.EmploymentDTO;
+import com.example.demo.DTO.EmploymentDTO;
 import com.example.demo.entities.Employment;
 import com.example.demo.service.EmploymentService.EmploymentFindService;
 import org.springframework.beans.factory.annotation.Autowired;

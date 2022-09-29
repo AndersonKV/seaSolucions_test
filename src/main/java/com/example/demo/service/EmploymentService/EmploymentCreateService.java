@@ -5,8 +5,8 @@ import com.example.demo.entities.Sector;
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
+import com.example.demo.utils.EmploymentValidate;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,24 +16,11 @@ import java.util.Optional;
 public class EmploymentCreateService {
     private EmploymentRepository employmentRepository;
     private SectorRepository sectorRepository;
+    private EmploymentValidate employmentValidate;
 
     public Employment create(Employment request) {
         try {
-
-            Optional<Employment> positionExist = this.employmentRepository.findByPositionName(request.getPositionName());
-
-            if (positionExist.isPresent()) {
-                throw new ApiRequestException("já existe um cargo com esse nome: " + request.getPositionName());
-            }
-
-            Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(request.getSectorName());
-
-            if (sectorExist.isEmpty()) {
-                throw new ApiRequestException("nenhum setor com esse nome foi encontrado: " + request.getSectorName());
-            }
-
-            request.setSectorId(sectorExist.get().getId());
-
+            //Employment employment = this.employmentValidate.pass(request);
             return this.employmentRepository.save(request);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());

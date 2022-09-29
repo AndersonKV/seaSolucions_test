@@ -1,8 +1,8 @@
 package com.example.demo.service.SectorService;
 
-import com.example.demo.controllers.DTO.ListEmployeeDTO;
-import com.example.demo.controllers.DTO.EmploymentAggregationDTO;
-import com.example.demo.controllers.DTO.SectorDTO;
+import com.example.demo.DTO.ListEmployeeDTO;
+import com.example.demo.DTO.EmploymentAggregationDTO;
+import com.example.demo.DTO.SectorDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.repository.EmployeeRepository;

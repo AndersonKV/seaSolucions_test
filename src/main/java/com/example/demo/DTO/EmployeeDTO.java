@@ -1,33 +1,34 @@
-package com.example.demo.controllers.DTO;
+package com.example.demo.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Setter
 @Getter
 public class EmployeeDTO {
     //@CPF(message = "CPF inválido")
+    @Size(min = 11, max = 11)
     private String CPF;
 
     @NotEmpty(message = "nome não pode estar vazio")
-    private String nameEmployee;
+    private String name;
 
     @NotEmpty(message = "nome do cargo não pode estar vazio")
-    private String positionName;
+    private String employment;
 
     @NotEmpty(message = "nome do setor não pode estar vazio")
-    private String sectorName;
+    private String sector;
 
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(String CPF, String nameEmployee, String positionName, String sectorName) {
+    public EmployeeDTO(String CPF, String name, String employment, String sector) {
         this.CPF = CPF;
-        this.nameEmployee = nameEmployee;
-        this.positionName = positionName;
-        this.sectorName = sectorName;
+        this.name = name;
+        this.employment = employment;
+        this.sector = sector;
     }
 }

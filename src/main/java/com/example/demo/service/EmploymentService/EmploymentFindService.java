@@ -1,7 +1,7 @@
 package com.example.demo.service.EmploymentService;
 
-import com.example.demo.controllers.DTO.ListEmployeeDTO;
-import com.example.demo.controllers.DTO.EmploymentDTO;
+import com.example.demo.DTO.ListEmployeeDTO;
+import com.example.demo.DTO.EmploymentDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.exception.ApiRequestException;

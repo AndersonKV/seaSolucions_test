@@ -1,12 +1,12 @@
 package com.example.demo.controllers.EmployeeController;
 
-import com.example.demo.controllers.DTO.EmployeeDTO;
-import com.example.demo.entities.Employee;
+import com.example.demo.DTO.EmployeeDTO;
 import com.example.demo.service.EmployeeService.EmployeeCreateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class EmployeeCreateController {
     private EmployeeCreateService employeeCreateService;
 
     @PostMapping(path = "create")
-    public Employee Create(@Valid @RequestBody EmployeeDTO request) {
+    public ResponseEntity Create(@Valid @RequestBody EmployeeDTO request) {
         return this.employeeCreateService.create(request);
     }
 
