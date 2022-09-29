@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "api/v1/position")
+@RequestMapping(path = "api/v1/employment")
 @CrossOrigin("*")
 public class EmploymentCreateController {
     @Autowired

@@ -1,10 +1,8 @@
 package com.example.demo.controllers.EmployeeController;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeDTO;
-import com.example.demo.service.EmployeeService.EmployeeCreateService;
-
+import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
+import com.example.demo.service.EmployeeService.EmployeeUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,19 +13,18 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping(path = "api/v1/employee")
 @CrossOrigin("*")
-public class EmployeeCreateController {
-
+public class EmployeeUpdateController {
     @Autowired
-    private EmployeeCreateService employeeCreateService;
+    private EmployeeUpdateService employeeUpdateService;
 
-    @PostMapping(path = "create")
-    public ResponseEntity Create(@Valid @RequestBody EmployeeDTO request) {
-        return this.employeeCreateService.create(request);
+    @PutMapping(path = "update/{id}")
+    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateDTO request) {
+        return this.employeeUpdateService.update(id, request);
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -1,6 +1,7 @@
 package com.example.demo.utils;
 
-import com.example.demo.DTO.EmployeeDTO;
+import com.example.demo.DTO.EmployeeDTO.ListEmployeeDTO;
+import com.example.demo.DTO.EmploymentDTO.EmploymentPopulateDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
@@ -8,70 +9,57 @@ import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
-import jdk.jshell.execution.Util;
+
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
-@AllArgsConstructor
-public class EmploymentValidate {
+public class EmploymentValidate extends UtilsValid {
+    @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
     private EmploymentRepository employmentRepository;
-    private SectorRepository sectorRepository;
-    private UtilsValid utilsValid;
 
-
-    public Employee pass(EmployeeDTO request) {
-
-        this.utilsValid.cpfIsValid(request.getCPF());
-
-        this.employeeHasRegisterWithCPF(request.getCPF());
-
-        Long employmentId = this.employmentExist(request.getEmployment());
-
-        Long sectorId = this.sectorExist(request.getSector());
-
-        var employee = new Employee(request.getCPF(),
-                request.getName(),
-                employmentId,
-                sectorId);
-
-        return employee;
+    public EmploymentValidate(EmployeeRepository employeeRepository, EmploymentRepository employmentRepository, SectorRepository sectorRepository) {
+        super(employeeRepository, employmentRepository, sectorRepository);
     }
 
-    protected void employeeHasRegisterWithCPF(String cpf) {
-        Optional<Employee> employeeIsRegister = this.employeeRepository.findByCPF(cpf);
+    public Employment create(Employment request) {
 
-        if (employeeIsRegister.isPresent()) {
-            throw new ApiRequestException("esse cpf " + cpf + " já foi registrado");
-        }
+        this.throwErrorIfEmploymentHasFound(request.getName());
+
+        this.throwErrorIfSectorNotFound(request.getSectorId());
+
+        return request;
     }
 
-    protected Long employmentExist(String name) {
-        Optional<Employment> employment = this.employmentRepository.findByPositionName(name);
+    public EmploymentPopulateDTO getEmploymentAndUsers(String name) {
+        Employment employment = this.throwErrorIfEmploymentNameNotFound(name);
 
-        if (employment.isEmpty()) {
-            throw new ApiRequestException("nenhum cargo com o nome " + name + " foi encontradofoi encontrado");
-        }
+        Sector sector = this.sectorExist(employment.getSectorId());
 
-        return employment.get().getId();
+        List<Employee> listEmployee = this.employeeRepository.findByEmploymentIdAndSectorId(employment.getId(), employment.getSectorId());
+
+        EmploymentPopulateDTO employmentPopulateDTO = new EmploymentPopulateDTO(
+                employment.getName(),
+                sector.getSectorName()
+        );
+
+        List<ListEmployeeDTO> listEmployeeDTO = new ArrayList<>();
+
+        listEmployee.stream().forEach(a -> {
+            listEmployeeDTO.add(new ListEmployeeDTO(a.getCPF(), a.getNameEmployee()));
+        });
+
+        employmentPopulateDTO.setEmployeeList(listEmployeeDTO);
+
+        return employmentPopulateDTO;
     }
 
-    protected Long sectorExist(String name) {
-        Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(name);
-
-        if (sectorExist.isEmpty()) {
-            throw new ApiRequestException("nenhum setor com o nome " + name + " foi encontrado");
-        }
-
-        return sectorExist.get().getId();
-
-    }
 
 }

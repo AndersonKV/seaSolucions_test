@@ -1,9 +1,11 @@
 package com.example.demo.service.EmployeeService;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeDTO;
+import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.EmploymentRepository;
+import com.example.demo.repository.SectorRepository;
 import com.example.demo.utils.EmployeeValidate;
 import com.example.demo.utils.EmploymentValidate;
 import lombok.AllArgsConstructor;
@@ -13,25 +15,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class EmployeeCreateService {
+public class EmployeeUpdateService {
     private EmployeeRepository employeeRepository;
     private EmployeeValidate employeeValidate;
 
+    public ResponseEntity update(Long id, EmployeeUpdateDTO request) {
 
-    public ResponseEntity create(EmployeeDTO request) {
-        try {
-            Employee employee = this.employeeValidate.create(request);
+        Employee update = this.employeeValidate.update(id, request);
 
-            var createdEmployee = this.employeeRepository.save(employee);
+        var employee =this.employeeRepository.save(update);
 
-            return new ResponseEntity(createdEmployee, HttpStatus.CREATED);
-        } catch (Exception e) {
-            throw new ApiRequestException(e.getMessage());
-        }
-
+        return new ResponseEntity(employee, HttpStatus.CREATED);
     }
-
-
 }
-
-

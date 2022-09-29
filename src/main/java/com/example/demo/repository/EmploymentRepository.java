@@ -9,7 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface EmploymentRepository extends JpaRepository<Employment, Long> {
-    Optional<Employment> findByPositionName(String name);
+    Optional<Employment> findByName(String name);
     List<Employment> findBySectorId(Long id);
+
 
 }

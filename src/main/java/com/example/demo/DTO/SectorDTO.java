@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import com.example.demo.DTO.EmployeeDTO.EmploymentAggregationDTO;
 import lombok.Getter;
 import lombok.Setter;
 

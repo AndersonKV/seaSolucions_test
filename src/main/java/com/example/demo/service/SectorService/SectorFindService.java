@@ -1,7 +1,7 @@
 package com.example.demo.service.SectorService;
 
-import com.example.demo.DTO.ListEmployeeDTO;
-import com.example.demo.DTO.EmploymentAggregationDTO;
+import com.example.demo.DTO.EmployeeDTO.ListEmployeeDTO;
+import com.example.demo.DTO.EmployeeDTO.EmploymentAggregationDTO;
 import com.example.demo.DTO.SectorDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
@@ -38,7 +38,7 @@ public class SectorFindService {
             getAllEmployments.stream().forEach(p -> {
                 List<ListEmployeeDTO> tempListEmployees = new ArrayList<>();
 
-                List<Employee> getAllEmployees = this.employeeRepository.findByPositionIdAndSectorId(p.getId(), p.getSectorId());
+                List<Employee> getAllEmployees = this.employeeRepository.findByEmploymentIdAndSectorId(p.getId(), p.getSectorId());
 
                 //pega todos os empregados
                 getAllEmployees.stream().forEach(employee -> {
@@ -47,7 +47,7 @@ public class SectorFindService {
                     tempListEmployees.add(tempEmployee);
                 });
 
-                var tempPosition = new EmploymentAggregationDTO(p.getPositionName(), tempListEmployees);
+                var tempPosition = new EmploymentAggregationDTO(p.getName(), tempListEmployees);
 
                 tempListPositions.add(tempPosition);
             });

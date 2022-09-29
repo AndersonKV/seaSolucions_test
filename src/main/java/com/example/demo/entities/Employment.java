@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,10 +22,8 @@ public class Employment {
     private Long id;
 
     @NotEmpty(message = "nome do cargo não pode estar vazio")
-    private String positionName;
+    private String name;
 
-    @NotEmpty(message = "nome do setor não pode estar vazio")
-    private String sectorName;
-
+    @NotNull(message = "nome do setor não pode estar vazio")
     private Long sectorId;
 }

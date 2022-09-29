@@ -1,6 +1,5 @@
 package com.example.demo.controllers.EmployeeController;
 
-import com.example.demo.DTO.EmployeeDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.service.EmployeeService.EmployeeFindService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,12 @@ public class EmployeeFindController {
     @Autowired
     private EmployeeFindService employeeFindService;
 
+    @GetMapping
+    public ResponseEntity findAll() {
+        return this.employeeFindService.findAll();
+    }
+
+
     @GetMapping(path = "id/{id}")
     public ResponseEntity findById(@PathVariable Long id) {
         return this.employeeFindService.findById(id);
@@ -32,10 +37,5 @@ public class EmployeeFindController {
         return this.employeeFindService.findByCpf(cpf);
     }
 
-
-    @GetMapping(path = "info/{id}")
-    public EmployeeDTO FindByInfoAboutEmployee(@PathVariable Long id) {
-        return this.employeeFindService.findByInfoAboutEmployee(id);
-    }
 
 }

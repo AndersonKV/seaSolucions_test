@@ -6,8 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 @Getter
 @Setter
 @Entity
@@ -24,7 +22,7 @@ public class Employee {
     @NotEmpty(message = "nome não pode estar vazio")
     private String nameEmployee;
 
-    private Long positionId;
+    private Long employmentId;
 
     private Long sectorId;
 
@@ -35,7 +33,7 @@ public class Employee {
     public Employee(String CPF, String name, Long positionId, Long sectorId) {
         this.CPF = CPF;
         this.nameEmployee = name;
-        this.positionId = positionId;
+        this.employmentId = positionId;
         this.sectorId = sectorId;
     }
 }
