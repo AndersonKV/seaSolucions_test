@@ -1,9 +1,7 @@
-package com.example.demo.controllers.PositionController;
+package com.example.demo.controllers.EmploymentController;
 
-import com.example.demo.entities.Position;
-import com.example.demo.entities.Sector;
-import com.example.demo.service.PositionService.PositionCreateService;
-import com.example.demo.service.SectorService.SectorCreateService;
+import com.example.demo.entities.Employment;
+import com.example.demo.service.EmploymentService.EmploymentCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -13,18 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/position")
 @CrossOrigin("*")
-public class PositionCreateController{
+public class EmploymentCreateController {
     @Autowired
-    private PositionCreateService positionCreateService;
+    private EmploymentCreateService employmentCreateService;
 
     @PostMapping(path = "create")
-    public Position Create(@Valid @RequestBody Position request) {
-         return this.positionCreateService.create(request);
+    public Employment Create(@Valid @RequestBody Employment request) {
+         return this.employmentCreateService.create(request);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

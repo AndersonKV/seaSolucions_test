@@ -18,7 +18,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_sequence")
     private Long id;
 
-    @CPF(message = "CPF inválido")
+    //@CPF(message = "CPF inválido")
     private String CPF;
 
     @NotEmpty(message = "nome não pode estar vazio")
@@ -28,8 +28,7 @@ public class Employee {
 
     private Long sectorId;
 
-//    private String positionName;
-//    private String sectorName;
+
     public Employee() {
     }
 

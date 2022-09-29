@@ -1,27 +1,26 @@
-package com.example.demo.service.PositionService;
+package com.example.demo.service.EmploymentService;
 
-import com.example.demo.entities.Position;
+import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
 import com.example.demo.exception.ApiRequestException;
-import com.example.demo.repository.PositionRepository;
+import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class PositionCreateService {
-    @Autowired
-    private PositionRepository positionRepository;
-
-    @Autowired
+@AllArgsConstructor
+public class EmploymentCreateService {
+    private EmploymentRepository employmentRepository;
     private SectorRepository sectorRepository;
 
-    public Position create(Position request) {
+    public Employment create(Employment request) {
         try {
 
-            Optional<Position> positionExist = this.positionRepository.findByPositionName(request.getPositionName());
+            Optional<Employment> positionExist = this.employmentRepository.findByPositionName(request.getPositionName());
 
             if (positionExist.isPresent()) {
                 throw new ApiRequestException("já existe um cargo com esse nome: " + request.getPositionName());
@@ -34,7 +33,8 @@ public class PositionCreateService {
             }
 
             request.setSectorId(sectorExist.get().getId());
-            return this.positionRepository.save(request);
+
+            return this.employmentRepository.save(request);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

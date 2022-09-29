@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter
 public class EmployeeDTO {
-    @CPF(message = "CPF inválido")
+    //@CPF(message = "CPF inválido")
     private String CPF;
 
     @NotEmpty(message = "nome não pode estar vazio")

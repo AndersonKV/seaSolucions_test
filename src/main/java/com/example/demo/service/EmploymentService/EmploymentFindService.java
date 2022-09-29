@@ -1,37 +1,33 @@
-package com.example.demo.service.PositionService;
+package com.example.demo.service.EmploymentService;
 
 import com.example.demo.controllers.DTO.ListEmployeeDTO;
-import com.example.demo.controllers.DTO.PositionDTO;
+import com.example.demo.controllers.DTO.EmploymentDTO;
 import com.example.demo.entities.Employee;
-import com.example.demo.entities.Position;
+import com.example.demo.entities.Employment;
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
-import com.example.demo.repository.PositionRepository;
+import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class PositionFindService {
-    @Autowired
+@AllArgsConstructor
+public class EmploymentFindService {
     private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private PositionRepository positionRepository;
-
-    @Autowired
+    private EmploymentRepository employmentRepository;
     private SectorRepository sectorRepository;
 
 
-    public List<Position> findAll() {
-        return this.positionRepository.findAll();
+    public List<Employment> findAll() {
+        return this.employmentRepository.findAll();
     }
 
-    public PositionDTO findByPositionName(String name) {
+    public EmploymentDTO findByPositionName(String name) {
         try {
-            Optional<Position> positionExist = this.positionRepository.findByPositionName(name);
+            Optional<Employment> positionExist = this.employmentRepository.findByPositionName(name);
 
             if (positionExist.isEmpty()) {
                 throw new ApiRequestException("nenhum cargo com esse nome foi encontrado: " + name);
@@ -39,7 +35,7 @@ public class PositionFindService {
 
             List<Employee> getAllEmployees = this.employeeRepository.findByPositionIdAndSectorId(positionExist.get().getId(), positionExist.get().getSectorId());
 
-            PositionDTO positionDTO = new PositionDTO(
+            EmploymentDTO employmentDTO = new EmploymentDTO(
                     positionExist.get().getPositionName(),
                     positionExist.get().getSectorName()
                     );
@@ -50,9 +46,9 @@ public class PositionFindService {
                 ArrayListEmployees.add(new ListEmployeeDTO(a.getCPF(), a.getNameEmployee()));
             });
 
-            positionDTO.setEmployeeList(ArrayListEmployees);
+            employmentDTO.setEmployeeList(ArrayListEmployees);
 
-            return positionDTO;
+            return employmentDTO;
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

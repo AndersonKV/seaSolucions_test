@@ -4,7 +4,7 @@ import com.example.demo.controllers.DTO.EmployeeDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
-import com.example.demo.repository.PositionRepository;
+import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EmployeeFindService {
     private EmployeeRepository employeeRepository;
-    private PositionRepository positionRepository;
+    private EmploymentRepository employmentRepository;
     private SectorRepository sectorRepository;
 
     public EmployeeDTO findById(Long id) {
@@ -28,7 +28,7 @@ public class EmployeeFindService {
                 throw new ApiRequestException("nenhum empregado com esse id foi encontrado: " + id);
             }
 
-            var findPosition = this.positionRepository.findById(findEmployee.get().getPositionId());
+            var findPosition = this.employmentRepository.findById(findEmployee.get().getPositionId());
 
             if (findPosition.isEmpty()) {
                 throw new ApiRequestException("nenhum ew333mpregado com esse id foi encontrado: " + findEmployee.get().getPositionId());
@@ -62,7 +62,7 @@ public class EmployeeFindService {
                 throw new ApiRequestException("nenhum empregado com esse id foi encontrado: " + id);
             }
 
-            var getPosition = this.positionRepository.findById(findEmployee.get().getPositionId());
+            var getPosition = this.employmentRepository.findById(findEmployee.get().getPositionId());
 
             if (getPosition.isEmpty()) {
                 throw new ApiRequestException("não foi possivel recuperar o cargo");

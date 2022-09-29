@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Setter
 @Entity
 @Table(name = "tb_position")
-public class Position {
+public class Employment {
     @Id
     @SequenceGenerator(name = "positions_sequence", sequenceName = "positions_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "positions_sequence")
