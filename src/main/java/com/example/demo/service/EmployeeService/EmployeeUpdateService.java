@@ -21,10 +21,15 @@ public class EmployeeUpdateService {
 
     public ResponseEntity update(Long id, EmployeeUpdateDTO request) {
 
-        Employee update = this.employeeValidate.update(id, request);
+        try {
+            Employee update = this.employeeValidate.update(id, request);
 
-        var employee =this.employeeRepository.save(update);
+            var employee =this.employeeRepository.save(update);
 
-        return new ResponseEntity(employee, HttpStatus.CREATED);
+            return new ResponseEntity(employee, HttpStatus.CREATED);
+        }catch (Exception e) {
+            throw new ApiRequestException(e.getMessage());
+        }
+
     }
 }

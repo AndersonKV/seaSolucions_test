@@ -17,7 +17,7 @@ public class Employee {
     private Long id;
 
     //@CPF(message = "CPF inválido")
-    private String CPF;
+    private String cpf;
 
     @NotEmpty(message = "nome não pode estar vazio")
     private String nameEmployee;
@@ -30,8 +30,8 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String CPF, String name, Long positionId, Long sectorId) {
-        this.CPF = CPF;
+    public Employee(String cpf, String name, Long positionId, Long sectorId) {
+        this.cpf = cpf;
         this.nameEmployee = name;
         this.employmentId = positionId;
         this.sectorId = sectorId;

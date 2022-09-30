@@ -17,15 +17,13 @@ public class SectorCreateService {
 
     public ResponseEntity create(Sector request) {
         try {
-            Optional<Sector> sectorExist = this.sectorRepository.findBySectorName(request.getSectorName());
 
-            if (sectorExist.isPresent()) {
+            if (this.sectorRepository.findBySectorName(request.getSectorName()).isPresent()) {
                 throw new ApiRequestException("já existe um setor com esse nome: " + request.getSectorName());
             }
-
             var created = this.sectorRepository.save(request);
 
-             return new ResponseEntity(created, HttpStatus.CREATED);
+            return new ResponseEntity(created, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

@@ -1,6 +1,5 @@
 package com.example.demo.e2e.Employee;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeDTO;
 import com.example.demo.controllers.EmployeeController.SectorCreateController;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
@@ -13,7 +12,6 @@ import com.example.demo.utils.EmployeeFactory;
 import com.example.demo.utils.EmploymentFactory;
 import com.example.demo.utils.SectorFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -124,25 +123,11 @@ public class EmployeeFindControllerTest {
 
         var employee = new EmployeeFactory().create("andy", "12345678988", createdEmployee.getId(), sectorFactory.getId());
 
-        // var created = this.employeeRepository.save(employee);
-
-        var result = mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1/employee/create")
-                .content(asJsonString(employee))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andReturn();
-
-        var bodyResponse = result.getResponse().getContentAsString();
-
-        Gson gson = new Gson();
-
-        var MappingEmployee = gson.fromJson(bodyResponse, Employee.class);
+         ResponseEntity<Employee> result = this.employeeCreateService.create(employee);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/v1/employee/find_by_cpf")
-                .param("cpf", asJsonString(MappingEmployee.getCPF()))
+                .param("cpf", result.getBody().getCpf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());

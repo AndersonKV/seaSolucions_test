@@ -1,24 +1,20 @@
 package com.example.demo.utils;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
 import com.example.demo.DTO.EmployeeDTO.ListEmployeeDTO;
 import com.example.demo.DTO.EmploymentDTO.EmploymentPopulateDTO;
 import com.example.demo.DTO.EmploymentDTO.EmploymentUpdateDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
-import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmploymentValidate extends UtilsValid {
@@ -74,7 +70,7 @@ public class EmploymentValidate extends UtilsValid {
         List<ListEmployeeDTO> listEmployeeDTO = new ArrayList<>();
 
         listEmployee.stream().forEach(employee -> {
-            listEmployeeDTO.add(new ListEmployeeDTO(employee.getId(), employee.getCPF(), employee.getNameEmployee()));
+            listEmployeeDTO.add(new ListEmployeeDTO(employee.getId(), employee.getCpf(), employee.getNameEmployee()));
         });
 
         employmentPopulateDTO.setEmployeeList(listEmployeeDTO);

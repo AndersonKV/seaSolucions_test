@@ -1,6 +1,5 @@
 package com.example.demo.utils;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
@@ -34,7 +33,7 @@ public class UtilsValid {
     }
 
     protected void employeeHasRegisterWithCPF(String cpf) {
-        Optional<Employee> employeeIsRegister = this.employeeRepository.findByCPF(cpf);
+        Optional<Employee> employeeIsRegister = this.employeeRepository.findByCpf(cpf);
 
         if (employeeIsRegister.isPresent()) {
             throw new ApiRequestException("esse cpf " + cpf + " já foi registrado");
@@ -118,7 +117,7 @@ public class UtilsValid {
 
     protected void checkIsCPFUpdateAndExist(String actualCPF, String updateCPF) {
         if (!actualCPF.equals(updateCPF)) {
-            var find = this.employeeRepository.findByCPF(updateCPF);
+            var find = this.employeeRepository.findByCpf(updateCPF);
 
             if (find.isPresent()) {
                 throw new ApiRequestException("esse cpf " + updateCPF + " ja esta registrado");

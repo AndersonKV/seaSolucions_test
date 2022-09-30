@@ -11,8 +11,6 @@ import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public class SectorValidate extends UtilsValid {
             List<Employee> getAllEmployees = this.employeeRepository.findByEmploymentIdAndSectorId(employment.getId(), employment.getSectorId());
 
             getAllEmployees.stream().forEach(employee -> {
-                ListEmployeeDTO tempEmployee = new ListEmployeeDTO(employee.getId(), employee.getCPF(), employee.getNameEmployee());
+                ListEmployeeDTO tempEmployee = new ListEmployeeDTO(employee.getId(), employee.getCpf(), employee.getNameEmployee());
 
                 tempListEmployees.add(tempEmployee);
             });
@@ -81,7 +79,7 @@ public class SectorValidate extends UtilsValid {
                 List<Employee> getAllEmployees = this.employeeRepository.findByEmploymentIdAndSectorId(employment.getId(), employment.getSectorId());
 
                 getAllEmployees.stream().forEach(employee -> {
-                    ListEmployeeDTO tempEmployee = new ListEmployeeDTO(employee.getId(), employee.getCPF(), employee.getNameEmployee());
+                    ListEmployeeDTO tempEmployee = new ListEmployeeDTO(employee.getId(), employee.getCpf(), employee.getNameEmployee());
 
                     tempListEmployees.add(tempEmployee);
                 });

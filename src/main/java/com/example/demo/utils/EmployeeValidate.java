@@ -6,15 +6,10 @@ import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
-import com.example.demo.exception.ApiRequestException;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 @Service
@@ -35,7 +30,7 @@ public class EmployeeValidate extends UtilsValid {
         var employee = new Employee();
 
         employee.setNameEmployee(request.getName());
-        employee.setCPF(request.getCPF());
+        employee.setCpf(request.getCPF());
         employee.setSectorId(request.getSectorId());
         employee.setEmploymentId(request.getEmploymentId());
 
@@ -46,7 +41,7 @@ public class EmployeeValidate extends UtilsValid {
     public Employee update(Long id, EmployeeUpdateDTO employeeUpdate) {
         Employee currentEmployee = this.employeeExist(id);
 
-        this.checkIsCPFUpdateAndExist(currentEmployee.getCPF(), employeeUpdate.getCPF());
+        this.checkIsCPFUpdateAndExist(currentEmployee.getCpf(), employeeUpdate.getCPF());
 
         Employment employment = this.employmentExist(employeeUpdate.getEmploymentId());
 
@@ -54,7 +49,7 @@ public class EmployeeValidate extends UtilsValid {
 
         employee.setId(id);
         employee.setNameEmployee(employeeUpdate.getName());
-        employee.setCPF(employeeUpdate.getCPF());
+        employee.setCpf(employeeUpdate.getCPF());
         employee.setEmploymentId(employment.getId());
         employee.setSectorId(employment.getSectorId());
 
@@ -71,7 +66,7 @@ public class EmployeeValidate extends UtilsValid {
 
         var employeeFindDTO = new EmployeeFindDTO();
 
-        employeeFindDTO.setCPF(employee.getCPF());
+        employeeFindDTO.setCPF(employee.getCpf());
         employeeFindDTO.setName(employee.getNameEmployee());
         employeeFindDTO.setSectorName(sector.getSectorName());
         employeeFindDTO.setEmploymentName(employment.getName());

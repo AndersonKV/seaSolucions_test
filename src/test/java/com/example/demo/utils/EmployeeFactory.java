@@ -3,7 +3,6 @@ package com.example.demo.utils;
 import com.example.demo.DTO.EmployeeDTO.EmployeeDTO;
 import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
 import com.example.demo.entities.Employee;
-import com.example.demo.entities.Employment;
 
 public class EmployeeFactory {
     public EmployeeDTO create(String name, String cpf, Long employmentId, Long sectorId) {
@@ -22,7 +21,7 @@ public class EmployeeFactory {
 
         Employee employee = new Employee();
 
-        employee.setCPF(cpf);
+        employee.setCpf(cpf);
         employee.setEmploymentId(employmentId);
         employee.setSectorId(sectorId);
         employee.setNameEmployee(name);

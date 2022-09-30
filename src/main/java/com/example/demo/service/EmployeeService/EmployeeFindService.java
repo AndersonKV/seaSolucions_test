@@ -1,6 +1,5 @@
 package com.example.demo.service.EmployeeService;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeDTO;
 import com.example.demo.DTO.EmployeeDTO.EmployeeFindDTO;
 import com.example.demo.entities.Employee;
 import com.example.demo.exception.ApiRequestException;
@@ -55,7 +54,7 @@ public class EmployeeFindService {
 
     public ResponseEntity findByCpf(String cpf) {
         try {
-            Optional<Employee> find = this.employeeRepository.findByCPF(cpf);
+            Optional<Employee> find = this.employeeRepository.findByCpf(cpf);
 
             if (find.isEmpty()) {
                 throw new ApiRequestException("nenhum cpf com esses numero foi encontrado: " + cpf);
