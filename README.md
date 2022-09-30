@@ -5,6 +5,8 @@ test terminado</br>
 
 troquei alguns nomes como setor para <b>sector</b> e cargo para <b>employment</b> e empregado para <b>employee</b></br>
 
+como foi pedido</br>
+
 Spring boot versão 2.5.4</br>
 java 11</br>
 postegresql com jpa hibernate para persistencia das informações no banco</br>
