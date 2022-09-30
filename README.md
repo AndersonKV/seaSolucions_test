@@ -7,19 +7,19 @@ troquei alguns nomes como setor para <b>sector</b> e cargo para <b>employment</b
 
 como foi pedido</br>
 
-Spring boot versão 2.5.4</br>
-java 11</br>
-postegresql com jpa hibernate para persistencia das informações no banco</br>
-utilização do gladle</br>
-swagger</br>
-cobertura de teste e2e, integration</br>
-criação de setor e cargo com nomes unicos, se tiver algum nome sendo usado dispara um erro avisando</br>
-verificação se cpf é valido, usei o @CPF mas tinha que usar um cpf valido, então comentei para poder passar nos testes</br>
-atualização de setor, cargo, cpf, com verificação se o nome já esta em uso ou o cpf</br>
-busca todos os empregados</br>
-busca todos os cargos</br>
-busca todos os setores</br>
-sobre o teste</br>
+Spring boot versão 2.5.4</br></br>
+java 11</br></br>
+postegresql com jpa hibernate para persistencia das informações no banco</br></br>
+utilização do gladle</br></br>
+swagger</br></br>
+cobertura de teste e2e, integration</br></br>
+criação de setor e cargo com nomes unicos, se tiver algum nome sendo usado dispara um erro avisando</br></br>
+verificação se cpf é valido, usei o @CPF mas tinha que usar um cpf valido, então comentei para poder passar nos testes</br></br>
+atualização de setor, cargo, cpf, com verificação se o nome já esta em uso ou o cpf</br></br>
+busca todos os empregados</br></br>
+busca todos os cargos</br></br>
+busca todos os setores</br></br>
+sobre o teste</br></br>
 
 eu nunca usei o gladle, então foi um pouco complicado instalar as dependencias, especialmente no inicio</br>
 depois foi tranquilo</br>
