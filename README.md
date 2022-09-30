@@ -32,10 +32,43 @@ apesar de não te conseguido, eu já tinha feito esse tipo de relação com pris
 
 criei as entidades, usei alguns dto, criei utils pra lidar com a criação, verificação da criação busca etc</br>
 
-uma coisa que achei complicada de fazer foi na rota sectorFindController -> findAll, eu nunca tinha feito isso no java</br>
+uma coisa que achei complicada de fazer foi na rota sectorFindController -> findAll, eu nunca tinha feito uma busca tão grande assim no java</br>
 ele faz uma relação bem grande, pegando os setores, os ids dos cargos associados ao setor, e aos empregados associados ao cargo
 
+ Tests passed: 57
+
+
+http://localhost:8080/swagger-ui.html
+
  
+  ```diff
+/*:::::EMPLOYEE CONTROLLER *
+
++ POST http://localhost:8080/api/v1/api/v1/employee
+# GET http://localhost:8080/api/v1/api/v1/employee
+# GET http://localhost:8080/api/v1/api/v1/employee/id/{id}
+# GET http://localhost:8080/api/v1/api/v1/employee/find_by_name?name=query
+# GET http://localhost:8080/api/v1/api/v1/employee/find_by_cpf?cpf=query
+! PUT http://localhost:8080/api/v1/api/v1/employee/update/{id}
+- DELETE  http://localhost:8080/api/v1/api/v1/employee/id/{id}
+- DELETE  http://localhost:8080/api/v1/api/v1/employee/delete_all
+
+/*:::::EMPLOYMENT CONTROLLER *
+
++ POST http://localhost:8080/api/v1/api/v1/employment
+# GET http://localhost:8080/api/v1/api/v1/employment/find_all
+# GET http://localhost:8080/api/v1/api/v1/employment/find_by_employment?=name=query
+# GET http://localhost:8080/api/v1/api/v1/employment/id/{id}
+! PUT http://localhost:8080/api/v1/api/v1/employment/update/{id}
+- DELETE  http://localhost:8080/api/v1/api/v1/employment/id/{id}
+- DELETE  http://localhost:8080/api/v1/api/v1/employment/delete_all
+
+/*:::::SECTOR CONTROLLER *
+
++ POST http://localhost:8080/api/v1/api/v1/sector
+# GET http://localhost:8080/api/v1/api/v1/sector
+# GET http://localhost:8080/api/v1/api/v1/sector/id/{id}
+! PUT http://localhost:8080/api/v1/api/v1/sector/update/{id}
+
+...
  
- 
-Tests passed: 57
