@@ -29,7 +29,7 @@ public class EmploymentFindController {
         return this.employmentFindService.findAll();
     }
 
-    @PutMapping(path = "find_by_employment")
+    @GetMapping(path = "find_by_employment")
     public ResponseEntity findByEmploymentName(@RequestParam("name") String name) {
         return this.employmentFindService.findEmploymentByName(name);
     }

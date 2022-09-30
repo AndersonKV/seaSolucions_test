@@ -65,7 +65,7 @@ public class EmploymentUpdateServiceTest {
 
         ResponseEntity res = this.employmentUpdateService.update(createdEmployment.getId(), updateEmployment);
 
-        Assertions.assertEquals(HttpStatus.ACCEPTED, res.getStatusCode());
+        Assertions.assertEquals(HttpStatus.CREATED, res.getStatusCode());
 
     }
 

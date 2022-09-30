@@ -29,40 +29,20 @@ public class SectorFindService {
     private SectorValidate sectorValidate;
 
 
+    public ResponseEntity findById(Long id) {
+        try {
+            List<SectorDTO> list = this.sectorValidate.populateSectorListById(id);
+            return new ResponseEntity(list, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            throw new ApiRequestException(e.getMessage());
+        }
+
+    }
+
     public ResponseEntity findAll() {
         try {
-            List<Sector> listSectors = this.sectorRepository.findAll();
-
-            List<SectorDTO> listShouldReturnInEnding = new ArrayList<>();
-
-            listSectors.stream().forEach(sector -> {
-
-                List<Employment> listEmployments = this.employmentRepository.findBySectorId(sector.getId());
-
-                List<EmploymentPopulateDTO> tempListEmployment = new ArrayList<>();
-
-                listEmployments.stream().forEach(p -> {
-                    List<ListEmployeeDTO> tempListEmployees = new ArrayList<>();
-
-                    List<Employee> getAllEmployees = this.employeeRepository.findByEmploymentIdAndSectorId(p.getId(), p.getSectorId());
-
-                    getAllEmployees.stream().forEach(employee -> {
-                        ListEmployeeDTO tempEmployee = new ListEmployeeDTO(employee.getCPF(), employee.getNameEmployee());
-
-                        tempListEmployees.add(tempEmployee);
-                    });
-
-                    var tempEmployee = new EmploymentPopulateDTO(p.getName(), tempListEmployees);
-
-                    tempListEmployment.add(tempEmployee);
-                });
-
-                SectorDTO tempSector = new SectorDTO(sector.getId(), sector.getSectorName(), tempListEmployment);
-
-                listShouldReturnInEnding.add(tempSector);
-            });
-
-            return new ResponseEntity(listShouldReturnInEnding, HttpStatus.ACCEPTED);
+            List<SectorDTO> list = this.sectorValidate.populateSectorListWithEmploymentAndEmployee();
+            return new ResponseEntity(list, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

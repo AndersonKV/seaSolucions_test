@@ -66,14 +66,15 @@ public class EmploymentValidate extends UtilsValid {
         List<Employee> listEmployee = this.employeeRepository.findByEmploymentIdAndSectorId(employment.getId(), employment.getSectorId());
 
         EmploymentPopulateDTO employmentPopulateDTO = new EmploymentPopulateDTO(
+                employment.getId(),
                 employment.getName(),
                 sector.getSectorName()
         );
 
         List<ListEmployeeDTO> listEmployeeDTO = new ArrayList<>();
 
-        listEmployee.stream().forEach(a -> {
-            listEmployeeDTO.add(new ListEmployeeDTO(a.getCPF(), a.getNameEmployee()));
+        listEmployee.stream().forEach(employee -> {
+            listEmployeeDTO.add(new ListEmployeeDTO(employee.getId(), employee.getCPF(), employee.getNameEmployee()));
         });
 
         employmentPopulateDTO.setEmployeeList(listEmployeeDTO);

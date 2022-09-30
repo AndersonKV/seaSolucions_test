@@ -14,11 +14,11 @@ import java.util.stream.Stream;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_position")
+@Table(name = "tb_employment")
 public class Employment {
     @Id
-    @SequenceGenerator(name = "positions_sequence", sequenceName = "positions_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "positions_sequence")
+    @SequenceGenerator(name = "employments_sequence", sequenceName = "employment_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employment_sequence")
     private Long id;
 
     @NotEmpty(message = "nome do cargo não pode estar vazio")

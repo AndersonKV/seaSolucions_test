@@ -56,7 +56,7 @@ public class SectorUpdateServiceTest {
 
         Optional<Sector> getUpdatedSector = this.sectorRepository.findById(sector.getId());
 
-        Assertions.assertEquals(HttpStatus.ACCEPTED, res.getStatusCode());
+        Assertions.assertEquals(HttpStatus.CREATED, res.getStatusCode());
         Assertions.assertEquals(getUpdatedSector.get().getSectorName(), updateSector.getSectorName());
     }
 

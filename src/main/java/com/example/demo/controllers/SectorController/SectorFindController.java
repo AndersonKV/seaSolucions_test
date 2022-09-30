@@ -20,4 +20,10 @@ public class SectorFindController {
         return this.sectorFindService.findAll();
     }
 
+
+    @GetMapping(path = "id/{id}")
+    public ResponseEntity FindById(@PathVariable Long id) {
+        return this.sectorFindService.findById(id);
+    }
+
 }

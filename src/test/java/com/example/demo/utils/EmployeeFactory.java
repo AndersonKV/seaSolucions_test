@@ -18,6 +18,20 @@ public class EmployeeFactory {
         return employee;
     }
 
+    public Employee createNotDTO(String name, String cpf, Long employmentId, Long sectorId) {
+
+        Employee employee = new Employee();
+
+        employee.setCPF(cpf);
+        employee.setEmploymentId(employmentId);
+        employee.setSectorId(sectorId);
+        employee.setNameEmployee(name);
+
+        return employee;
+    }
+
+
+
     public EmployeeUpdateDTO update(String name, String cpf, Long employmentId, Long sectorId) {
 
         EmployeeUpdateDTO employee = new EmployeeUpdateDTO();

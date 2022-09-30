@@ -9,8 +9,8 @@ import java.util.List;
 @Setter
 @Getter
 public class EmploymentPopulateDTO {
+    private Long id;
     private String employment;
-   // private String sectorId;
     private String sectorName;
 
 
@@ -20,8 +20,9 @@ public class EmploymentPopulateDTO {
 
     }
 
-    public EmploymentPopulateDTO(String employment, String sectorName) {
+    public EmploymentPopulateDTO(Long id, String employment, String sectorName) {
         this.employment = employment;
         this.sectorName = sectorName;
+        this.id = id;
     }
 }

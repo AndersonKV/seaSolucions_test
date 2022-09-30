@@ -25,9 +25,9 @@ public class EmployeeCreateService {
         try {
             Employee employee = this.employeeValidate.create(request);
 
-            this.employeeRepository.save(employee);
+            var created = this.employeeRepository.save(employee);
 
-            return new ResponseEntity(HttpStatus.CREATED);
+            return new ResponseEntity(created, HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

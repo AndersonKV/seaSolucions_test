@@ -24,7 +24,7 @@ public class SectorUpdateService {
         try {
             Sector update = this.sectorValidate.update(id, request);
             this.sectorRepository.save(update);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }
