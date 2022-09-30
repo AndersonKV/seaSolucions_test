@@ -25,7 +25,7 @@ public class EmploymentDeleteService {
     }
 
 
-    public ResponseEntity deleteAll(Long id) {
+    public ResponseEntity deleteAll( ) {
         try {
             this.employmentRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.ACCEPTED);

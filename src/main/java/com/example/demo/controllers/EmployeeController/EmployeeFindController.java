@@ -28,12 +28,12 @@ public class EmployeeFindController {
     }
 
     @GetMapping(path = "find_by_name")
-    public List<Employee> FindByName(@RequestParam("name") String name) {
+    public ResponseEntity<List<Employee>> FindByName(@RequestParam("name") String name) {
         return this.employeeFindService.findByName(name);
     }
 
     @GetMapping(path = "find_by_cpf")
-    public Employee FindByCpf(@RequestParam("cpf") String cpf) {
+    public ResponseEntity FindByCpf(@RequestParam("cpf") String cpf) {
         return this.employeeFindService.findByCpf(cpf);
     }
 

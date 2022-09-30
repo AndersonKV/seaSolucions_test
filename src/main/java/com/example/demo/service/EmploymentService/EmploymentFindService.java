@@ -8,6 +8,8 @@ import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 import com.example.demo.utils.EmploymentValidate;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,13 +22,15 @@ public class EmploymentFindService {
     private SectorRepository sectorRepository;
     private EmploymentValidate employmentValidate;
 
-    public List<Employment> findAll() {
-        return this.employmentRepository.findAll();
+    public ResponseEntity findAll() {
+        return new ResponseEntity(this.employmentRepository.findAll(), HttpStatus.ACCEPTED);
     }
 
-    public EmploymentPopulateDTO findEmploymentByName(String name) {
+    public ResponseEntity findEmploymentByName(String name) {
         try {
-             return this.employmentValidate.getEmploymentAndUsers(name);
+            EmploymentPopulateDTO employmentPopulateDTO = this.employmentValidate.getEmploymentAndUsers(name);
+
+            return new ResponseEntity(employmentPopulateDTO, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

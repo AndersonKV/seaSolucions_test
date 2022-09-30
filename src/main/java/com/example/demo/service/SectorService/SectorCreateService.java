@@ -22,6 +22,7 @@ public class SectorCreateService {
             if (sectorExist.isPresent()) {
                 throw new ApiRequestException("já existe um setor com esse nome: " + request.getSectorName());
             }
+
             var created = this.sectorRepository.save(request);
 
              return new ResponseEntity(created, HttpStatus.CREATED);

@@ -6,6 +6,8 @@ import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 import com.example.demo.utils.EmploymentValidate;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,11 +17,13 @@ public class EmploymentCreateService {
     private SectorRepository sectorRepository;
     private EmploymentValidate employmentValidate;
 
-    public Employment create(Employment request) {
+    public ResponseEntity create(Employment request) {
         try {
             Employment employment = this.employmentValidate.create(request);
 
-            return this.employmentRepository.save(employment);
+            this.employmentRepository.save(employment);
+
+            return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

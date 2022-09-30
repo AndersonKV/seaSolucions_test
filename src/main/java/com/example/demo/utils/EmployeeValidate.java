@@ -11,6 +11,7 @@ import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EmploymentRepository;
 import com.example.demo.repository.SectorRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,8 +19,6 @@ import java.util.Optional;
 
 @Service
 public class EmployeeValidate extends UtilsValid {
-    private EmployeeRepository employeeRepository;
-
     public EmployeeValidate(EmployeeRepository employeeRepository, EmploymentRepository employmentRepository, SectorRepository sectorRepository) {
         super(employeeRepository, employmentRepository, sectorRepository);
     }

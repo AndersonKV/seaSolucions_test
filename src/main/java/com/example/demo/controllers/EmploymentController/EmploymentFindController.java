@@ -25,12 +25,12 @@ public class EmploymentFindController {
     private EmploymentFindService employmentFindService;
 
     @GetMapping(path = "find_all")
-    public List<Employment> FindAll() {
+    public ResponseEntity ResponseEntityFindAll() {
         return this.employmentFindService.findAll();
     }
 
     @PutMapping(path = "find_by_employment")
-    public EmploymentPopulateDTO findByEmploymentName(@RequestParam("name") String name) {
+    public ResponseEntity findByEmploymentName(@RequestParam("name") String name) {
         return this.employmentFindService.findEmploymentByName(name);
     }
 

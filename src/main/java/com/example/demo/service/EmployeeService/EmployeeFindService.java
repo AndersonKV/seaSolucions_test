@@ -39,7 +39,7 @@ public class EmployeeFindService {
         }
     }
 
-    public List<Employee> findByName(String name) {
+    public ResponseEntity findByName(String name) {
         try {
             List<Employee> findByName = this.employeeRepository.findByNameEmployee(name);
 
@@ -47,13 +47,13 @@ public class EmployeeFindService {
                 throw new ApiRequestException("nenhum empregado com esse nome foi encontrado: " + name);
             }
 
-            return findByName;
+            return new ResponseEntity(findByName, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }
     }
 
-    public Employee findByCpf(String cpf) {
+    public ResponseEntity findByCpf(String cpf) {
         try {
             Optional<Employee> find = this.employeeRepository.findByCPF(cpf);
 
@@ -61,7 +61,7 @@ public class EmployeeFindService {
                 throw new ApiRequestException("nenhum cpf com esses numero foi encontrado: " + cpf);
             }
 
-            return find.get();
+            return new ResponseEntity(find.get(), HttpStatus.ACCEPTED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }

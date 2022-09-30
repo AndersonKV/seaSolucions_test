@@ -45,7 +45,7 @@ public class UtilsValid {
         Optional<Employment> employment = this.employmentRepository.findById(id);
 
         if (employment.isEmpty()) {
-            throw new ApiRequestException("nenhum cargo com esse id " + id + " foi encontradofoi encontrado");
+            throw new ApiRequestException("nenhum cargo com esse id " + id + " foi encontrado");
         }
 
         return employment.get();
@@ -125,6 +125,7 @@ public class UtilsValid {
             }
         }
     }
+
     protected void cpfIsValid(String cpf) {
         if (!this.checkIsOnlyNumbers(cpf)) {
             throw new ApiRequestException("CPF deve ter 11 digitos");

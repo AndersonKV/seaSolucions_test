@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class EmployeeCreateService {
@@ -18,13 +20,14 @@ public class EmployeeCreateService {
     private EmployeeValidate employeeValidate;
 
 
+    @Transactional
     public ResponseEntity create(EmployeeDTO request) {
         try {
             Employee employee = this.employeeValidate.create(request);
 
-            var createdEmployee = this.employeeRepository.save(employee);
+            this.employeeRepository.save(employee);
 
-            return new ResponseEntity(createdEmployee, HttpStatus.CREATED);
+            return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage());
         }
