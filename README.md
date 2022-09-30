@@ -32,8 +32,8 @@ apesar de não te conseguido, eu já tinha feito esse tipo de relação com pris
 
 criei as entidades, usei alguns dto, criei utils pra lidar com a criação, verificação da criação busca etc</br>
 
-uma coisa que achei complicada de fazer foi na rota sectorFindController -> findAll, eu nunca tinha feito uma busca tão grande assim no java</br>
-ele faz uma relação bem grande, pegando os setores, os ids dos cargos associados ao setor, e aos empregados associados ao cargo
+uma coisa que achei xatinha de fazer foi na rota sectorFindController -> findAll, eu nunca tinha feito uma busca tão grande assim no java</br>
+ele faz uma relação, pegando os setores, os  cargos associados ao setor, e aos empregados associados ao cargo
 
  Tests passed: 57
 
