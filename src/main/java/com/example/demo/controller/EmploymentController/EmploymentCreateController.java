@@ -1,9 +1,9 @@
-package com.example.demo.controllers.EmploymentController;
+package com.example.demo.controller.EmploymentController;
 
-import com.example.demo.DTO.EmploymentDTO.EmploymentPopulateDTO;
-import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
-import com.example.demo.service.EmploymentService.EmploymentFindService;
+import com.example.demo.service.EmploymentService.EmploymentCreateService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,29 +11,23 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/employment")
 @CrossOrigin("*")
-public class EmploymentFindController {
-
+@Api(value="API REST CREATE EMPLOYMENT")
+public class EmploymentCreateController {
     @Autowired
-    private EmploymentFindService employmentFindService;
+    private EmploymentCreateService employmentCreateService;
 
-    @GetMapping(path = "find_all")
-    public ResponseEntity ResponseEntityFindAll() {
-        return this.employmentFindService.findAll();
+    @ApiOperation(value="should create employment")
+    @PostMapping(path = "create")
+    public ResponseEntity Create(@Valid @RequestBody Employment request) {
+         return this.employmentCreateService.create(request);
     }
-
-    @GetMapping(path = "find_by_employment")
-    public ResponseEntity findByEmploymentName(@RequestParam("name") String name) {
-        return this.employmentFindService.findEmploymentByName(name);
-    }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -47,4 +41,5 @@ public class EmploymentFindController {
         });
         return errors;
     }
+
 }

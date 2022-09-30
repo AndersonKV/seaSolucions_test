@@ -1,6 +1,6 @@
 package com.example.demo.e2e.Employment;
 
-import com.example.demo.controllers.EmployeeController.SectorCreateController;
+import com.example.demo.controller.SectorController.SectorCreateController;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
 import com.example.demo.repository.EmploymentRepository;
@@ -9,7 +9,6 @@ import com.example.demo.utils.EmploymentFactory;
 import com.example.demo.utils.SectorFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

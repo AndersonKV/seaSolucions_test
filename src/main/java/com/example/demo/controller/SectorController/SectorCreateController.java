@@ -1,8 +1,12 @@
-package com.example.demo.controllers.EmployeeController;
+package com.example.demo.controller.SectorController;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
-import com.example.demo.service.EmployeeService.EmployeeUpdateService;
+import com.example.demo.entities.Sector;
+
+import com.example.demo.service.SectorService.SectorCreateService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,18 +17,20 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @RestController
-@RequestMapping(path = "api/v1/employee")
+@RequestMapping(path = "api/v1/sector")
 @CrossOrigin("*")
-public class EmployeeUpdateController {
+@Api(value="API REST CREATE SECTOR")
+public class SectorCreateController {
     @Autowired
-    private EmployeeUpdateService employeeUpdateService;
+    private SectorCreateService sectorCreateService;
 
-    @PutMapping(path = "update/{id}")
-    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateDTO request) {
-        return this.employeeUpdateService.update(id, request);
+    @ApiOperation(value="should create sector")
+    @PostMapping(path = "create")
+    public ResponseEntity Create(@Valid @RequestBody Sector request) {
+        return this.sectorCreateService.create(request);
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

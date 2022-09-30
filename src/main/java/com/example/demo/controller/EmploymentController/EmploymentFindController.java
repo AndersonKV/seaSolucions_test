@@ -1,33 +1,38 @@
-package com.example.demo.controllers.EmployeeController;
+package com.example.demo.controller.EmploymentController;
 
-import com.example.demo.DTO.EmployeeDTO.EmployeeDTO;
-import com.example.demo.service.EmployeeService.EmployeeCreateService;
-
+import com.example.demo.service.EmploymentService.EmploymentFindService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RestController
-@RequestMapping(path = "api/v1/employee")
+@RequestMapping(path = "api/v1/employment")
 @CrossOrigin("*")
-public class EmployeeCreateController {
-
+@Api(value="API REST FIND EMPLOYMENT")
+public class EmploymentFindController {
     @Autowired
-    private EmployeeCreateService employeeCreateService;
+    private EmploymentFindService employmentFindService;
 
-    @PostMapping(path = "create")
-    public ResponseEntity Create(@Valid @RequestBody EmployeeDTO request) {
-        return this.employeeCreateService.create(request);
+    @ApiOperation(value="should find all employments")
+    @GetMapping(path = "find_all")
+    public ResponseEntity ResponseEntityFindAll() {
+        return this.employmentFindService.findAll();
     }
+
+    @ApiOperation(value="should find employment by name")
+    @GetMapping(path = "find_by_employment")
+    public ResponseEntity findByEmploymentName(@RequestParam("name") String name) {
+        return this.employmentFindService.findEmploymentByName(name);
+    }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -41,5 +46,4 @@ public class EmployeeCreateController {
         });
         return errors;
     }
-
 }

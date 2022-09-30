@@ -1,9 +1,9 @@
-package com.example.demo.controllers.SectorController;
+package com.example.demo.controller.EmployeeController;
 
-import com.example.demo.DTO.EmploymentDTO.EmploymentUpdateDTO;
-import com.example.demo.entities.Sector;
-import com.example.demo.service.EmploymentService.EmploymentUpdateService;
-import com.example.demo.service.SectorService.SectorUpdateService;
+import com.example.demo.DTO.EmployeeDTO.EmployeeUpdateDTO;
+import com.example.demo.service.EmployeeService.EmployeeUpdateService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +16,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "api/v1/sector")
+@RequestMapping(path = "api/v1/employee")
 @CrossOrigin("*")
-public class SectorUpdateController {
+@Api(value="API REST UPDATE EMPLOYEE")
+public class EmployeeUpdateController {
     @Autowired
-    private SectorUpdateService sectorUpdateService;
+    private EmployeeUpdateService employeeUpdateService;
 
+    @ApiOperation(value="should update employee by id")
     @PutMapping(path = "update/{id}")
-    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody Sector request) {
-        return this.sectorUpdateService.update(id, request);
+    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateDTO request) {
+        return this.employeeUpdateService.update(id, request);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

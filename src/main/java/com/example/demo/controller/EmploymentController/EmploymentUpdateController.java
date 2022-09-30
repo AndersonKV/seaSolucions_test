@@ -1,7 +1,9 @@
-package com.example.demo.controllers.EmploymentController;
+package com.example.demo.controller.EmploymentController;
 
 import com.example.demo.DTO.EmploymentDTO.EmploymentUpdateDTO;
 import com.example.demo.service.EmploymentService.EmploymentUpdateService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,12 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "api/v1/employment")
 @CrossOrigin("*")
+@Api(value="API REST UPDATE EMPLOYMENT")
 public class EmploymentUpdateController {
     @Autowired
     private EmploymentUpdateService employmentUpdateService;
 
+    @ApiOperation(value="should update employment")
     @PutMapping(path = "update/{id}")
     public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody EmploymentUpdateDTO request) {
          return this.employmentUpdateService.update(id, request);

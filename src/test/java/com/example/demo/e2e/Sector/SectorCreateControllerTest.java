@@ -1,13 +1,11 @@
 package com.example.demo.e2e.Sector;
 
-import com.example.demo.controllers.EmployeeController.SectorCreateController;
+import com.example.demo.controller.SectorController.SectorCreateController;
 import com.example.demo.entities.Sector;
 import com.example.demo.repository.SectorRepository;
 import com.example.demo.utils.SectorFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

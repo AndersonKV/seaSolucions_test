@@ -1,7 +1,7 @@
 package com.example.demo.e2e.Employee;
 
-import com.example.demo.controllers.EmployeeController.SectorCreateController;
-import com.example.demo.entities.Employee;
+ import com.example.demo.controller.SectorController.SectorCreateController;
+ import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.Sector;
 import com.example.demo.repository.EmployeeRepository;
