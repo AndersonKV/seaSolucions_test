@@ -21,6 +21,8 @@ busca todos os cargos</br></br>
 busca todos os setores</br></br>
 sobre o teste</br></br>
 
+Tests passed: 57
+
 eu nunca usei o gladle, então foi um pouco complicado instalar as dependencias, especialmente no inicio</br>
 depois foi tranquilo</br>
 
@@ -34,8 +36,6 @@ criei as entidades, usei alguns dto, criei utils pra lidar com a criação, veri
 
 uma coisa que achei xatinha de fazer foi na rota sectorFindController -> findAll, eu nunca tinha feito uma busca tão grande assim no java</br>
 ele faz uma relação, pegando os setores, os  cargos associados ao setor, e aos empregados associados ao cargo
-
- Tests passed: 57
 
 
 http://localhost:8080/swagger-ui.html
