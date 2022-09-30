@@ -12,7 +12,7 @@ import com.example.demo.service.EmploymentService.EmploymentCreateService;
 import com.example.demo.utils.EmployeeFactory;
 import com.example.demo.utils.EmploymentFactory;
 import com.example.demo.utils.SectorFactory;
- import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,35 +50,33 @@ public class EmployeeCreateServiceTest {
     @Test
     @DisplayName("should create employee")
     public void shouldCreateEmployee() {
-        Sector sector = new SectorFactory().create("setor 200");
+        Sector sectorFactoryCreated = new SectorFactory().create("setor_employee_create 1");
 
-        Sector sectorCreated = this.sectorRepository.save(sector);
+        Sector sectorCreated = this.sectorRepository.save(sectorFactoryCreated);
 
-        Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo 9000");
+        Employment employmentFactoryCreated = new EmploymentFactory().create(sectorCreated.getId(), "cargo_employment 1");
 
-        Employment employmentCreated = this.employmentRepository.save(employmentFactory);
+        Employment employmentCreated = this.employmentRepository.save(employmentFactoryCreated);
 
-        EmployeeDTO employee = new EmployeeFactory().create("andy", "12345678911", employmentCreated.getId(), sectorCreated.getId());
+        EmployeeDTO employeeFactoryCreated = new EmployeeFactory().create("andy", "12345678911", employmentCreated.getId(), sectorCreated.getId());
 
-       ResponseEntity res = this.employeeCreateService.create(employee);
+        ResponseEntity response = this.employeeCreateService.create(employeeFactoryCreated);
 
-        Assertions.assertEquals(HttpStatus.CREATED, res.getStatusCode());
-     }
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
 
 
     @Test
     @DisplayName("should fail in create employee wrong employement id")
     public void shouldFailInCreateEmployeeWrongEmploymentId() {
         try {
-            Sector sector = new SectorFactory().create("setor 200333");
+            Sector sectorFactoryCreated = new SectorFactory().create("setor_employee_create 2");
 
-            Sector sectorCreated = this.sectorRepository.save(sector);
-
-            Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo 9000");
+            Sector sectorCreated = this.sectorRepository.save(sectorFactoryCreated);
 
             EmployeeDTO employee = new EmployeeFactory().create("andy", "0000000000", 555l, sectorCreated.getId());
-            this.employeeCreateService.create(employee);
 
+            this.employeeCreateService.create(employee);
         } catch (RuntimeException e) {
             Assertions.assertEquals("nenhum cargo com esse id 555 foi encontrado", e.getMessage());
         }
@@ -88,17 +86,16 @@ public class EmployeeCreateServiceTest {
     @DisplayName("should fail in create employee wrong sector id")
     public void shouldFailInCreateEmployeeWrongSectorId() {
         try {
-            Sector sector = new SectorFactory().create("setor 20033344");
-            Sector sectorCreated = this.sectorRepository.save(sector);
+            Sector sectorFactoryCreated = new SectorFactory().create("setor_employee_create 3");
+            Sector sectorCreated = this.sectorRepository.save(sectorFactoryCreated);
 
+            Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo_employment 3");
 
-            Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo 9044400");
-            Employment employmentCreated = this.employmentRepository.save(employmentFactory);
+            Employment employmentShouldThrowError = this.employmentRepository.save(employmentFactory);
 
+            EmployeeDTO employeeFactoryCreated = new EmployeeFactory().create("andy", "0000000000", employmentShouldThrowError.getId(), 4444l);
 
-            EmployeeDTO employee = new EmployeeFactory().create("andy", "0000000000", employmentCreated.getId(), 4444l);
-
-            this.employeeCreateService.create(employee);
+            this.employeeCreateService.create(employeeFactoryCreated);
 
         } catch (RuntimeException e) {
             Assertions.assertEquals("nenhum setor com esse id 4444 foi encontrado", e.getMessage());
@@ -109,15 +106,16 @@ public class EmployeeCreateServiceTest {
     @DisplayName("should fail in create employee wrong digits cpf")
     public void shouldFailInCreateWrongCPFDigits() {
         try {
-            Sector sector = new SectorFactory().create("setor 2003334444");
-            Sector sectorCreated = this.sectorRepository.save(sector);
+            Sector sectorFactoryCreated = new SectorFactory().create("setor_employee_create 4");
+            Sector sectorCreated = this.sectorRepository.save(sectorFactoryCreated);
 
-            Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo 900440");
-            Employment employmentCreated = this.employmentRepository.save(employmentFactory);
+            Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo_employment 4");
 
-            EmployeeDTO employee = new EmployeeFactory().create("andy", "8198189w", employmentCreated.getId(), sectorCreated.getId());
+            Employment employmentShouldThrowError = this.employmentRepository.save(employmentFactory);
 
-            this.employeeCreateService.create(employee);
+            EmployeeDTO employeeFactoryCreated = new EmployeeFactory().create("andy", "8198189w", employmentShouldThrowError.getId(), sectorCreated.getId());
+
+            this.employeeCreateService.create(employeeFactoryCreated);
         } catch (RuntimeException e) {
             Assertions.assertEquals("CPF deve ter 11 digitos", e.getMessage());
         }
@@ -128,8 +126,8 @@ public class EmployeeCreateServiceTest {
     @DisplayName("should fail cpf has register")
     public void shouldFailInCPFHasRegister() {
         try {
-            Sector sector = new SectorFactory().create("setor 200335534444");
-            Sector sectorCreated = this.sectorRepository.save(sector);
+            Sector sectorFactoryCreated = new SectorFactory().create("setor_employee_create 5");
+            Sector sectorCreated = this.sectorRepository.save(sectorFactoryCreated);
 
             Employment employmentFactory = new EmploymentFactory().create(sectorCreated.getId(), "cargo 900440");
             Employment employmentCreated = this.employmentRepository.save(employmentFactory);
@@ -137,7 +135,7 @@ public class EmployeeCreateServiceTest {
             EmployeeDTO employee = new EmployeeFactory().create("andy", "0000000", employmentCreated.getId(), sectorCreated.getId());
 
 
-           this.employeeCreateService.create(employee);
+            this.employeeCreateService.create(employee);
 
         } catch (RuntimeException e) {
             Assertions.assertEquals("CPF deve ter 11 digitos", e.getMessage());
